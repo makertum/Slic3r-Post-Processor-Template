@@ -174,8 +174,10 @@ sub filter_print_gcode
 	}elsif($thisLine=~/^; end of print/){
 		$end=1;
 	}else{
-		/.*(\h*;\h*([\h\w_-]*)\h*)?/;
-		my $verbose=$2;
+		my $verbose;
+		if($thisLine=~/.*(\h*;\h*([\h\w_-]*)\h*)?/){
+			$verbose=$2;
+		}
 		# all the other gcodes, such as temperature changes, fan on/off, acceleration
 		return process_other($thisLine, $verbose);
 	}
